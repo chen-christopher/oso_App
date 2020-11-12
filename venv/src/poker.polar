@@ -33,3 +33,20 @@ count_elems([_other, *tail], elem, count) if
 ## Alternate approach using Python builtins
 # alt_count_elems(list, elem, count) if
 #    count = list.count(elem);
+
+
+
+
+
+straight(lis1, lis2) if straight_util(lis1, lis2);
+
+straight_util(lis, [head]) if check_sequence(lis, head) and print(head);
+
+straight_util(lis, [head, *tail]) if (check_sequence(lis, head) and print(head) and cut) or straight_util(lis, tail);
+
+#check_sequence(lis, 13) if ((4 in lis) and (3 in lis) and (2 in lis) and (1 in lis)) or ((12 in lis) and (11 in lis) and (10 in lis) and (1 in lis));
+
+check_sequence(lis, comp) if (a = comp - 1 and a in lis) and (b = comp - 2 and b in lis) and (c = comp - 3 and c in lis) and (d = comp - 4 and d in lis);
+
+
+ 
