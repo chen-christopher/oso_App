@@ -1,17 +1,22 @@
+#IMPORTS
 from flask import Flask
 from flask_migrate import Migrate
 from models import db, InfoPokerTablesModel
 
+#--------------------CONFIG-----------------------
+
 app = Flask(__name__)
 
+#DATABASE CONFIG
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://master:master12345@database.c8ib7ubvtm2x.us-east-2.rds.amazonaws.com:5432/pokerDatabase"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app,db)
-
 with app.app_context():
     db.create_all()
 
+
+#--------------------ROUTES-----------------------
 
 #HOME
 @app.route('/')
@@ -51,3 +56,10 @@ def winner(table_cards, number_users, users_cards):
 
     #Returns winner
     return "winner is number 1"
+
+
+
+
+
+
+
