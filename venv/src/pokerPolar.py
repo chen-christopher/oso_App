@@ -217,4 +217,5 @@ def outputCardsWithSuit(cards, suit):
 temp1 = [7,5,4,3,3,2,1]
 temp2 = [7,5,4,3,3,2,1]
 print("STRAIGHT")
-print(list(oso.query_rule("straight", temp1, temp2)))        
+lis = list(oso.query_rule("straight", temp1, temp2, Variable("top")))
+print(lis[0]['bindings']['top'])

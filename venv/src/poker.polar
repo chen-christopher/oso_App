@@ -38,11 +38,11 @@ count_elems([_other, *tail], elem, count) if
 
 
 
-straight(lis1, lis2) if straight_util(lis1, lis2);
+straight(lis1, lis2, top) if straight_util(lis1, lis2, top);
 
-straight_util(lis, [head]) if check_sequence(lis, head) and print(head);
+straight_util(lis, [head], top) if check_sequence(lis, head) and top = head;
 
-straight_util(lis, [head, *tail]) if (check_sequence(lis, head) and print(head) and cut) or straight_util(lis, tail);
+straight_util(lis, [head, *tail], top) if (check_sequence(lis, head) and top = head and cut) or straight_util(lis, tail, top);
 
 #check_sequence(lis, 13) if ((4 in lis) and (3 in lis) and (2 in lis) and (1 in lis)) or ((12 in lis) and (11 in lis) and (10 in lis) and (1 in lis));
 
