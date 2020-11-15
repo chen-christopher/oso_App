@@ -72,6 +72,7 @@ oso.load_file("poker.polar")
 #-------------------------FUNCTIONS---------------------------
 
 def setHand(cards): #Establish the pattern and the top 5 cards
+    
     fiveCards = []
 
     #POLAR QUERIES
