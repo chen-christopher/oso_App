@@ -324,15 +324,50 @@ def straightHelper(numbers):
         return straightQuery[0]['bindings']['top']
 
 
+def convertHandtoNumbers(cards):
+    cardList = []
+    for card in cards.hand.topCards:
+        cardString = card.number
+        cardList.append(cardString)
+    return cardList
 
 
+def findWinner(allHands):
+    winningHand = None
+    winningHandScore = 0
+    for thisHand in allHands:
+        thisHandScore = thisHand.hand.pattern.value
+        # If the pattern match of this hand is greater than the current winner, set this hand as new best
+        if thisHandScore > winningHandScore:
+            winningHand = thisHand
+            winningHandScore = thisHandScore
+        # If the pattern match of this hand is the same as the current winner, do high card comparison
+        elif(thisHandScore == winningHandScore):
+            thisCard, oldCard = None, None
+            thisHandList = convertHandtoNumbers(thisHand)
+            oldHandList = convertHandtoNumbers(winningHand)
+            for thisCard, oldCard in zip(thisHandList, oldHandList):
+                if thisCard != oldCard:
+                    break
+            if thisCard > oldCard:
+                winningHand = thisHand.hand
+                winningHandScore = thisHandScore
 
-    
-    
+    print("WINNING HAND: ")
+    for card in winningHand.topCards:
+        print(str(card.number) + card.suit)
+    return winningHand
+
 
 #TEST
 
-cards = Cards("1H,2H,4D,2D,3D,5H")
-cards = Cards("1H,1D,4D,1T,1C,5H")
-cards = Cards("5H,1D,4D,1T,4C,5H")
+hand1 = Cards("1H,2H,4D,2D,3D,5H")
+hand2 = Cards("1H,1D,4D,1T,1C,5H")
+hand3 = Cards("5H,1D,4D,1T,4C,5H")
+hand4 = Cards("1H,2H,3H,4H,5H,6H")
+hand5 = Cards("2H,3H,4H,5H,6H,7H")
 
+
+allHands = [hand1, hand2, hand3, hand4, hand5]
+
+findWinner(allHands)
