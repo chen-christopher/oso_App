@@ -16,6 +16,8 @@ with app.app_context():
     db.create_all()
 
 
+
+
 #--------------------ROUTES-----------------------
 
 #HOME
@@ -40,8 +42,11 @@ def hand(table_cards, user_cards):
 
     '''FIGURE OUT HAND HERE'''
 
+    #card = Cards(table_cards + user_cards)
+    #return card.hand.pattern
+
     #Returns hand
-    return "straight flush"
+    return "straight flush" #Returns pattern
 
 #WINNER
 @app.route('/winner/<table_cards>/<int:number_users>/<users_cards>')
@@ -54,12 +59,14 @@ def winner(table_cards, number_users, users_cards):
 
     '''FIGURE OUT WINNER HERE'''
 
+    #cards = users_cards.split(",")
+    #cardsofficial = []
+    #for each card in users_cards:
+    #   cardsOfficial.append(Cards(card + table_cards))
+    
+    #Call emmett's function and pass cardsOfficial asthe argument
+    #Emmett's function returns the winner
+
+
     #Returns winner
     return "winner is number 1"
-
-
-
-
-
-
-

@@ -296,7 +296,6 @@ def checkForStraight(cards):
         else:
             secondArray.append(number)
     top = max(straightHelper(firstArray), straightHelper(secondArray))
-    print(top)
     if top == 0:
         return []
     
@@ -336,3 +335,22 @@ cards = Cards("1H,2H,4D,2D,3D,5H")
 cards = Cards("1H,1D,4D,1T,1C,5H")
 cards = Cards("5H,1D,4D,1T,4C,5H")
 
+
+
+"1H,2H,4D,2D,3D,5H,8C"
+
+pattern = straight
+topFiveCards = 1H, 2H, 3D, 4D, 5H
+
+
+"5H,1D,4D,1T,4C,5C, 9C"
+
+pattern = two pair
+
+
+1D, 1C, 1T, 4H, 5H, 6H, 8H
+
+1D, 1C, 1T, 8, 6
+
+
+2,3,4,5,6,7,8,9,10,J,Q,K,A

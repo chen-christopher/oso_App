@@ -33,15 +33,21 @@ Register{
     BigBlindPosition: 2
     NumberOfPlays: 45
     NumberOfActions: 125
+    current_round_id:
 
 
 }
 
-Round{
-    id: jashdahsjkdhasd7haksjdhj3
+Game{
+    round_id: jashdahsjkdhasd7haksjdhj3
     tableId: asjahsjahskakdjak7&^^FVUV@ #LINKED WITH REGISTER ID
-    participantsCars: {1231231: 2H3D,1231244: 8H7D,1251353: 2T3C,113515: 4H1D,13135135: 2H3D}
-    tableCars: [2h, 5h, 10D]
+    participants_money: [200,30,40,0,50,10]
+    participants_cards: {1231231: 2H3D,1231244: 8H7D,1251353: 2T3C,113515: 4H1D,13135135: 2H3D}
+    playersTurn: 2
+    table_cards_Active: activae cards displayed default 0
+    table_cards: [2h, 5h, 10D, 3D, 4D]
+    number_actions:
+    current_action:
     
 }
 
@@ -49,10 +55,10 @@ Round{
 Action{
     id: kajskjas8j3j3j3ju
     roundId: jashdahsjkdhasd7haksjdhj3&
-    tableId: asjahsjahskakdjak7&^^FVUV@ 
-    playersTurn: 2
+    tableId: asjahsjahskakdjak7&^^FVUV@
     action: Bet #options: BET, FOLD, CALL, CHECK
-    bet: 200
+    potSize: 200
+    
     call: NULL
  
 }
