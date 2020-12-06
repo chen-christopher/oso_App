@@ -2,7 +2,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 from models import db, InfoPokerTablesModel
-
+import pokerPolar
 #--------------------CONFIG-----------------------
 
 app = Flask(__name__)
@@ -35,7 +35,7 @@ def home():
 def hand(table_cards, user_cards):
 
     #prints on the server the input variables as example
-    print(table_cards)
+    deck = table_cards + user_cards
     print(user_cards)
 
     '''FIGURE OUT HAND HERE'''
@@ -53,9 +53,19 @@ def winner(table_cards, number_users, users_cards):
     print(users_cards)
 
     '''FIGURE OUT WINNER HERE'''
+    table_cards_as_string = "".join(table_cards)
+    card_list = []
+    for us in users_cards:
+        card_string = table_cards_as_string + "," + "".join(us)
+        card = pokerPolar.Card(card_string) # IDK
+        card_list.append(card)
 
     #Returns winner
-    return "winner is number 1"
+    winningHand = findWinner(card_list)
+    result_as_string = ""
+    for card in winningHand.topCards:
+        result_as_string += str(card.number) + card.suit
+    return result_as_string
 
 
 
