@@ -44,7 +44,7 @@ def hand(table_cards, user_cards):
     return "straight flush"
 
 #WINNER
-@app.route('/winner/<table_cards>/<int:number_users>/<users_cards>')
+@app.route('/winner/<table_cards>/<int:number_users>/<users_cards>') //EXAMPLE /winner/{table_cards: ["4H","13H","12C", "9C", "5H"]}/5/{users_cards: ["2H,3H","5C,6C","7C,10C", "9D,8D", "7D,1D"]}
 def winner(table_cards, number_users, users_cards):
 
     #prints on the server the input variables as example
