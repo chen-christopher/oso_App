@@ -44,6 +44,7 @@ def hand(table_cards, user_cards):
     return "straight flush"
 
 #WINNER
+#/winner/5/4H,13H,12C,9C,5H/2H,3H;...;/
 @app.route('/winner/<table_cards>/<int:number_users>/<users_cards>')
 def winner(table_cards, number_users, users_cards):
 
@@ -53,23 +54,30 @@ def winner(table_cards, number_users, users_cards):
     print(users_cards)
 
     '''FIGURE OUT WINNER HERE'''
-    table_cards_as_string = "".join(table_cards)
+    #table_cards_as_string = ",".join(table_cards)
     card_list = []
+    users_cards = users_cards.split(";")
+    print(users_cards)
     for us in users_cards:
-        card_string = table_cards_as_string + "," + "".join(us)
-        card = pokerPolar.Card(card_string) # IDK
+        card_string = table_cards + "," + "".join(us)
+        card = pokerPolar.Cards(card_string) # IDK
+        ### Check for aces - if 1 or 13
         card_list.append(card)
 
     #Returns winner
-    winningHand = findWinner(card_list)
-    result_as_string = ""
-    for card in winningHand.topCards:
-        result_as_string += str(card.number) + card.suit
+    winningHand = pokerPolar.findWinner(card_list)
+    #print(type(winningHand))
+    #return winningHand
+    result_as_string = "Winning Hand: \n"
+    result_as_string += "PATTERN: " + str(winningHand.hand.pattern) + "\n"
+    for card in winningHand.hand.topCards:
+
+        result_as_string += str(card.number) + card.suit + "\n"
     return result_as_string
 
 
 
+#print(winner("4H,13H,12C,9C,5H", 5, "2H,3H;5C,6C;7C,10C;9D,8D;7D,1D"))
 
-
-
+#winner/4H,13H,12C,9C,5H/5/2H,3H;5C,6C;7C,10C;9D,8D;7D,1D
 

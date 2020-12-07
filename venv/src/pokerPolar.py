@@ -89,17 +89,17 @@ def setHand(cards): #Establish the pattern and the top 5 cards
    polar_result = list(oso.query_rule("hand", list_of_all_cards, list_of_all_faces, duplicate_list_of_all_faces, list_of_all_suits, Variable("result")))
 	#POLAR QUERIES
    if len(polar_result) > 0:
-	   print(polar_result)
+	   #print(polar_result)
 	   result = polar_result[0]["bindings"]["result"]
 	   for i in range(len(result)):
 		   if i == 0:
 			   pattern = result[i]
-			   print(pattern)
+			   #print(pattern)
 			   check_for_flush = str(pattern)
 			   #print(check_for_flush)
 		   else:
 			   top_cards.append(result[i])
-			   print("(" + str(result[i].number) + "," + result[i].suit + ")" + "\n")
+			   #print("(" + str(result[i].number) + "," + result[i].suit + ")" + "\n")
 
 			
    else:
@@ -400,8 +400,9 @@ def findWinner(allHands):
 				winningHand = thisHand.hand
 				winningHandScore = thisHandScore
 
+	print(type(winningHand))
 	print("WINNING HAND: ")
-	for card in winningHand.topCards:
+	for card in winningHand.hand.topCards:
 		print(str(card.number) + card.suit)
 	return winningHand
 
@@ -415,7 +416,7 @@ def findWinner(allHands):
 #hand4 = Cards("4H,5D,4C,2H,2D,3C,3H")
 #hand5 = Cards("2H,3H,4H,5H,6H,7H")
 #hand6 = Cards("3D,3H,2H,3C,2D,3S,1S")
-hand7 = Cards("13H,3H,2C,3D,13S,9C,13C")
+#hand7 = Cards("13H,3H,2C,3D,13S,9C,13C")
 
 #allHands = [hand1, hand2, hand3, hand4, hand5]
 
