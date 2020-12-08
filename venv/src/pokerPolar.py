@@ -69,6 +69,7 @@ class Pattern(enum.Enum):
 	StraightFlush = 9
 
 
+
 #------------------CONFIG & REGISTER CLASSES----------------------
 oso = Oso()
 oso.register_class(Card)
@@ -378,7 +379,7 @@ def convertHandtoNumbers(cards):
 		cardList.append(cardString)
 	return cardList
 
-
+"""
 def findWinner(allHands):
 	winningHand = None
 	winningHandScore = 0
@@ -405,6 +406,39 @@ def findWinner(allHands):
 	for card in winningHand.hand.topCards:
 		print(str(card.number) + card.suit)
 	return winningHand
+
+"""
+def findWinner(playerDictionary):
+    winningHand = None
+    winningHandScore = 0
+    winningPlayerName = None
+
+    for key, value in playerDictionary.items():
+        playerName = key
+        thisHandScore = value.hand.pattern.value
+        # If the pattern match of this hand is greater than the current winner, set this hand as new best
+        if thisHandScore > winningHandScore:
+            winningHand = value
+            winningHandScore = thisHandScore
+            winningPlayerName = playerName
+        # If the pattern match of this hand is the same as the current winner, do high card comparison
+        elif(thisHandScore == winningHandScore):
+            thisCard, oldCard = None, None
+            thisHandList = convertHandtoNumbers(value)
+            oldHandList = convertHandtoNumbers(winningHand)
+            for thisCard, oldCard in zip(thisHandList, oldHandList):
+                if thisCard != oldCard:
+                    break
+            if thisCard > oldCard:
+                winningHand = value.hand
+                winningHandScore = thisHandScore
+                winningPlayerName = playerName
+
+    print("Winning Player: " + str(winningPlayerName))
+    for card in winningHand.hand.topCards:
+        print(str(card.number) + card.suit)
+    return str(winningPlayerName)
+
 
 
 #TEST
@@ -506,7 +540,7 @@ else:
 #>>>>>>> Stashed changes
 #lis = list(oso.query_rule("samp", temp14, 1))
  
-
+#print(Pattern.Pair.value == Pattern.Trio.value)
 
 
 
