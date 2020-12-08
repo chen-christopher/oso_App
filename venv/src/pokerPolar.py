@@ -1,3 +1,5 @@
+from typing import Any
+
 from oso import Oso
 from oso import Variable
 import enum
@@ -407,7 +409,6 @@ def findWinner(allHands):
 		print(str(card.number) + card.suit)
 	return winningHand
 
-"""
 def findWinner(playerDictionary):
     winningHand = None
     winningHandScore = 0
@@ -438,7 +439,7 @@ def findWinner(playerDictionary):
     for card in winningHand.hand.topCards:
         print(str(card.number) + card.suit)
     return str(winningPlayerName)
-
+"""
 
 
 #TEST
@@ -543,7 +544,65 @@ else:
 #print(Pattern.Pair.value == Pattern.Trio.value)
 
 
+def findWinner(playerDictionary):
+    winningHand = None
+    winningHandScore = 0
+    winningPlayerName = None
 
+    for key, value in playerDictionary.items():
+        playerName = key
+        thisHandScore = value.hand.pattern.value
+        # If the pattern match of this hand is greater than the current winner, set this hand as new best
+        if thisHandScore > winningHandScore:
+            winningHand = value
+            winningHandScore = thisHandScore
+            winningPlayerName = playerName
+        # If the pattern match of this hand is the same as the current winner, do high card comparison
+        elif(thisHandScore == winningHandScore):
+            thisCard, oldCard = None, None
+            thisHandList = convertHandtoNumbers(value)
+            oldHandList = convertHandtoNumbers(winningHand)
+            for thisCard, oldCard in zip(thisHandList, oldHandList):
+                if thisCard != oldCard:
+                    break
+
+            if thisCard > oldCard:
+                winningHand = value.hand
+                winningHandScore = thisHandScore
+                winningPlayerName = playerName
+            else:
+                print("There has been a tie")
+                winningHand = value.hand
+                winningHandScore = thisHandScore
+                winningPlayerName = playerName
+
+    return winningPlayerName
+
+def rankedUsers(playerDictionary):
+
+    numPlayers = len(playerDictionary)
+
+    rankedList = []
+
+    for i in range(numPlayers):
+        currentWinner = findWinner(playerDictionary)
+        rankedList.append(currentWinner)
+        del playerDictionary[currentWinner]
+
+    print(rankedList)
+    return rankedList
+
+"""
+playerDictionary = {
+    "emmett" : Cards("1H,2H,4D,2D,3D,5H"),
+    "feliks" : Cards("1H,1D,4D,1T,1C,5H"),
+    "andrew" : Cards("5H,1D,4D,1T,4C,5H"),
+    "mateo" : Cards("1H,2H,3H,4H,5H,6H"),
+    "chris" : Cards("2H,3H,4H,5H,6H,7H")
+}
+
+rankedUsers(playerDictionary)
+"""
 
 
 

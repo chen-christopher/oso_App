@@ -1,5 +1,5 @@
 #IMPORTS
-from flask import Flask
+from flask import Flask, json
 from flask_migrate import Migrate
 from models import db, InfoPokerTablesModel
 import pokerPolar
@@ -37,16 +37,16 @@ def tiebreak(first_card_deck, second_card_deck):
         return first_card_deck
     return second_card_deck
 
-def create_new_dict(d):
-    new_d = {}
-
+def create_new_dict(d, rankings):
+    #print(d)
+    new_d = {"Rankings": rankings}
     for k in d.keys():
         st = ""
         for card in d[k].hand.topCards:
             st += str(card.number) + card.suit + ","
-        new_d[k] = {}
-        new_d[k]["Pattern"] = str(d[k].hand.pattern)
-        new_d[k]["Top Cards"] = st
+        new_d[str(k)] = {}
+        new_d[str(k)]["Pattern"] = str(d[k].hand.pattern)
+        new_d[str(k)]["Top Cards"] = st
 
     return new_d
 
@@ -90,6 +90,7 @@ def winner(table_cards, number_users, users_cards):
 
     Sample Output:
     {
+        'Rankings': [0, 4, 3, 2, 1],
         0: {'Pattern': 'Pattern.Flush', 'Top Cards': '13H,10H,7H,3H,2H,'},
         1: {'Pattern': 'Pattern.HighCard', 'Top Cards': '13H,12C,10H,9C,7H,'},
         2: {'Pattern': 'Pattern.TwoPair', 'Top Cards': '10H,10C,7H,7C,13H,'},
@@ -154,10 +155,20 @@ def winner(table_cards, number_users, users_cards):
     return result_as_string
 
     """
+    dict_copy = cards_dict.copy()
+    get_winners = pokerPolar.rankedUsers(cards_dict)
+    data = create_new_dict(dict_copy, get_winners)
+    #print(dict_copy)
+   # response = app.response_class(
+   #     response=json.dumps(data),
+  #      status=200,
+   #     mimetype='application/json'
+ #   )
+    return data #pokerPolar.findWinner(cards_dict) # create_new_dict(cards_dict) #change it to winningHand
 
-    return pokerPolar.findWinner(cards_dict) #create_new_dict(cards_dict) #pokerPolar.findWinner(cards_dict) # create_new_dict(cards_dict) #change it to winningHand
-
-print(winner("10H,13H,12C,9C,7H", 5, "2H,3H;5C,6C;7C,10C;9D,8D;11D,8D"))
+#print(winner("10H,13H,12C,9C,7H", 5, "2H,3H;5C,6C;7C,10C;9D,8D;11D,8D"))
 #print(replace_one_with_14_first_card("1H,13H,12C,9C,10H,7D,1D"))
 #winner/4H,13H,12C,9C,5H/5/2H,3H;5C,6C;7C,10C;9D,8D;7D,1D
 #winner/10H,13H,12C,9C,7H/5/2H,3H;5C,6C;7C,10C;9D,8D;11D,8D
+#print(winner("10H,13H,12C,9C,7H", 5, "2H,3H;11D,8D"))
+#winner/10H,13H,12C,9C,7H/2/2H,3H;11D,8D
